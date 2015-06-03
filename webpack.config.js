@@ -4,28 +4,25 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: [
-        'webpack/hot/only-dev-server'
-        , './js/main.js'
-    ]
-    , resolve: {
-        root: __dirname
-        , moduleDirectories: [
-            'bower_components'
-        ]
-    }
-    , module: {
+        'webpack/hot/only-dev-server',
+        './public/js/main.js'
+    ],
+    output: {
+        path: __dirname + '/dist',
+        filename: 'main.js',
+        publicPath: '/public/js/'
+    },
+    module: {
         loaders: [
             {
-                test: /\.js?$/
-                , loaders: ['react-hot', 'babel']
-                , exclude: /node_modules/
+                test: /\.js?$/,
+                loaders: ['react-hot', 'babel'],
+                exclude: /(node_modules|bower_components)/
             }
         ]
-    }
-    , plugins: [
-        new webpack.HotModuleReplacementPlugin()
-        , new webpack.NoErrorsPlugin()
-        , new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
+    },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
     ]
-    , devtool: 'eval-source-map'
-}
+};
